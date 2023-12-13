@@ -4,10 +4,10 @@
 
 - **Total Story Points:** 20
   - [x] Set up the Next.js project with TypeScript.
-  - [ ] Integrate TailwindCSS and Sass for styling.
-  - [ ] Prepare Docker environment for containerization.
-  - [ ] Initialize pnpm workspace.
-  - [ ] Scaffold basic file structure (components, pages, utilities).
+  - [x] Integrate TailwindCSS and Sass for styling.
+  - [x] Prepare Docker environment for containerization.
+  - [x] Initialize pnpm workspace.
+  - [x] Scaffold basic file structure (components, pages, utilities).
   - [ ] Create basic theming components for dark/light mode toggling & state management.
 
   - [ ] Develop a comprehensive feature roadmap
@@ -25,6 +25,7 @@
   - [ ] Integrate Thirdweb for Web3 functionalities.
   - [ ] Implement Wallet connection and display user's ERC20 token balance.
   - [ ] Implement purchase/swap functions in smart contracts.
+
   - [ ] Continue writing test cases and perform initial testing.
   - [ ] Style Home Page and Marketplace with TailwindCSS and Sass.
   - [ ] Add responsive design elements for better mobile support.
@@ -80,6 +81,7 @@
   - [ ] Perform security audits on smart contracts.
   - [ ] Address identified vulnerabilities.
   - [ ] Containerize final application with Docker for deployment.
+
   - [ ] Set up CI/CD pipeline if required.
   - [ ] Deploy application to production.
   - [ ] Monitor initial launch for urgent issues and fix as needed.

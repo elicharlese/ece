@@ -1,0 +1,39 @@
+version: "3"
+services:
+  portfolio-performance:
+    image: quallenbezwinger/portfolio-performance:0.7
+    container_name: portfolio
+    restart: unless-stopped
+    ports:
+      - 5800:5800
+    volumes:
+      - /opt/docker-volumes/pp/config:/config
+      - /opt/docker-volumes/pp/workspace:/opt/portfolio/workspace
+    environment:
+      USER_ID: 1000
+      GROUP_ID: 1000
+      DISPLAY_WIDTH: 1920
+      DISPLAY_HEIGHT: 1080
+      TZ: "Europe/Berlin"
+
+
+# ======================== Docker Compose
+
+networks:
+  roachnet:
+    driver: bridge
+services:
+  postgresql:
+    image: postgres:16
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      PGDATA: var/lib/postgresql/data
+volumes:
+  postgres:

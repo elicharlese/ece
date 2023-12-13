@@ -1,11 +1,15 @@
 {
   "compilerOptions": {
+<<<<<<< HEAD
     "jsx": "react",
+=======
+>>>>>>> 9489c415 (Initial Commit)
     "paths": {
       "@/*": ["app/*"]
     }
   }
 }
+<<<<<<< HEAD
 
 // Path: tsconfig.json
 {
@@ -16,3 +20,5 @@
     }
   }
 }
+=======
+>>>>>>> 9489c415 (Initial Commit)

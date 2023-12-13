@@ -1,13 +1,9 @@
 'use client';
-<<<<<<< HEAD
 <<<<<<<< HEAD:app/lib/lib.js
 import { DocsCard, HelloComponentsCard } from '../frontend/cards';
 ========
 import { DocsCard, HelloComponentsCard } from '../components/cards';
 >>>>>>>> 18e5a849 (Scaffold basic file structure):app/lib/page.js
-=======
-import { DocsCard, HelloComponentsCard } from '../components/cards';
->>>>>>> 9489c415 (Initial Commit)
 import { useWallet } from '../wallets/wallet-selector';
 import { useState, useEffect } from 'react';
 import { HelloNearContract, NetworkId } from '../../config';

@@ -112,3 +112,38 @@
 - [ ] Set up CI/CD pipeline if required.
 - [ ] Deploy application to production.
 - [ ] Monitor initial launch for urgent issues and fix as needed.
+
+## Sprint Days 10-13: Automated Workflow for Web3 Marketplace Content Generation
+
+- **Total Sprint Points: 30**
+
+### Days = 4
+
+- [ ] Set up automation using Zapier to trigger weekly tasks.
+- [ ] Configure ChatGPT integration with Zapier for new use cases generation.
+- [ ] Develop scripts for automated content creation:
+- [ ] Docker container images
+- [ ] Python scripts for trading bots
+- [ ] Rust/TypeScript/Solidity smart contracts
+
+ Create a repository structure for storing generated content.
+ Write documentation for the automated workflow process.
+ Implement testing procedures for the generated content.
+ Establish an AWS S3 bucket for hosting the content.
+ Configure AWS IAM roles and policies for secure access management.
+ Design a seamless upload process from Zapier to AWS S3.
+ Integrate the content upload process with the marketplace on the Cleanfolio platform.
+ Ensure proper versioning for the content items to keep track of updates.
+ Develop marketing materials for the newly created marketplace items.
+ Conduct a small-scale pilot run of the automated workflow.
+
+
+## Marketplace Automation Workflow Description:
+
+The newly introduced segment in the sprint is designed to create an efficient pipeline that automates the production of marketplace items, which are custom docker container images, python scripts for trading bots, and custom smart contracts written in Rust/TypeScript/Solidity. This process begins with an automated weekly trigger configured via Zapier, which prompts ChatGPT to generate a list of fresh use cases for each item category.
+
+Once ChatGPT has provided the use cases, corresponding files and content are automatically generated based on templates and pre-defined logic. The created items are then deposited into a structured repository, reviewed for quality, and uploaded to the AWS S3 bucket designated for marketplace content hosting. Tight integration within the platform’s marketplace ensures users have immediate access to purchase these new offerings.
+
+To maintain operational security and manageability, the necessary IAM roles and policies will be set on AWS to control access. All content items will carry version numbers to handle updates and revisions systematically. Marketing efforts will accompany the release of each item to ensure visibility and drive sales.
+
+An initial test run is crucial to iron out any kinks in the workflow and to ensure that all components interact smoothly. The successful deployment of this workflow sets the stage for consistent and regular updates to the web3 marketplace, providing customers with valuable and cutting-edge products.

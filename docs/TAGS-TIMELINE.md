@@ -1,3 +1,5 @@
+Can you give me a versioning & tags timeline for the projects development using this sprint as a template:
+
 # Sprint Breakdown for Cleanfolio Project
 
 ## Sprint Day 1: Environment Setup and Initial Planning

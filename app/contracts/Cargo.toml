@@ -1,0 +1,12 @@
+[package]
+name = "ece-cleanfolio"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+near-sdk = "4.1.1"
+
+[lib]
+crate-type = ["cdylib"]
+path = "src/lib.rs"
+

@@ -1,6 +1,10 @@
 import Image from 'next/image';
 import styles from './app.module.css';
+<<<<<<< HEAD
 import { DocsCard, HelloComponentsCard, HelloNearCard } from './frontend/cards';
+=======
+import { DocsCard, HelloComponentsCard, HelloNearCard } from './components/cards';
+>>>>>>> 18e5a849 (Scaffold basic file structure)
 
 export default function Home() {
   return (

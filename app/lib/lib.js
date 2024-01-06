@@ -1,5 +1,5 @@
 'use client';
-import { DocsCard, HelloComponentsCard } from '../components/cards';
+import { DocsCard, HelloComponentsCard } from '../frontend/cards';
 import { useWallet } from '../wallets/wallet-selector';
 import { useState, useEffect } from 'react';
 import { HelloNearContract, NetworkId } from '../../config';

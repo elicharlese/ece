@@ -1,0 +1,9 @@
+{
+  "name": "ece-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/ece-e2e/src",
+  "tags": [],
+  "implicitDependencies": ["ece"],
+  "// targets": "to see all targets run: nx show project ece-e2e --web",
+  "targets": {}
+}

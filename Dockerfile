@@ -28,4 +28,4 @@ RUN \
 COPY rootfs/ /
 
 # Set the name of the application.
-ENV APP_NAME="Portfolio Performance"
+ENV APP_NAME="ECE"

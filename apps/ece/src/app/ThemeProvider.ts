@@ -1,5 +1,7 @@
 // React
 import React, { createContext, useState, useContext, ReactNode } from 'react';
+import ThemeContext from './ThemeContext';
+
 
 // Define the shape of the context value
 interface ThemeContextType {
@@ -10,6 +12,7 @@ interface ThemeContextType {
 // Create a context for the theme
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+
 // Create a provider that will hold the state and enable it to be modified
 interface ThemeProviderProps {
   children: ReactNode;
@@ -19,9 +22,14 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [theme, setTheme] = useState<string>('light');
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+    setTheme((prevTheme) =>
+      prevTheme === 'light'
+        ? 'dark'
+        : prevTheme === 'dark'
+        ? 'colored'
+        : 'light'
+    );
   };
-
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}
@@ -37,3 +45,18 @@ export const useTheme = (): ThemeContextType => {
   }
   return context;
 };
+
+import { createTheme } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1976d2',
+    },
+    secondary: {
+      main: '#dc004e',
+    },
+  },
+});
+
+export default theme;

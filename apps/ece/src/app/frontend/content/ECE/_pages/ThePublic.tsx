@@ -1,3 +1,6 @@
+import React from 'react';
+import axios from 'axios';
+
 start = (
 <div className="flex flex-col items-center w-[1112px] box-sizing-border">
   <div className="m-[0_0_112px_1px] flex flex-col items-center w-[fit-content] box-sizing-border">
@@ -23,4 +26,8 @@ start = (
 </div>
 );
 
+
+
+
+// =============================== USE A PROXY TO GET THE DATA =============================== //
 embed = ()

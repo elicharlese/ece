@@ -209,3 +209,16 @@ ProductPage = (
     </div>
   </div>
 );
+
+QuickAdd = (
+  // Widget that covers listing image
+  // Add to cart button
+  // Quantity selector
+  // View cart button
+)
+
+// Checkout steps
+//  1. QuickAdd or ProductPage
+//  2. Add to Cart
+//  3. View Cart
+//  4. Checkout

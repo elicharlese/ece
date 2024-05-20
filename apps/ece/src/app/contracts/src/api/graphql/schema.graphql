@@ -1,0 +1,9 @@
+type Item {
+  id: ID!
+  name: String!
+  price: Float!
+}
+
+type Query {
+  items: [Item!]!
+}

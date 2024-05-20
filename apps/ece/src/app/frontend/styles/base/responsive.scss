@@ -3,3 +3,25 @@
 // Conditionally render inside layout components -> React TS
 
 // useContext & pass/cascade props
+
+// Add extra responsivity for mobile devices
+@media (max-width: 600px) {
+  .container {
+    width: 100%;
+    padding: 0 15px;
+  }
+  .header {
+    font-size: 1.5em;
+    text-align: center;
+  }
+  .nav {
+    display: none;
+  }
+  .content {
+    padding: 10px;
+  }
+  .footer {
+    text-align: center;
+    font-size: 0.8em;
+  }
+}

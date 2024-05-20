@@ -1,23 +1,41 @@
+import React from 'react';
 import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline'; // Optional, for baseline CSS reset
+import CssBaseline from '@mui/material/CssBaseline';
 import { ThirdwebProvider, ChainId } from '@thirdweb-dev/react';
-import theme from './path/to/your/theme'; // Adjust the path accordingly
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import theme from './path/to/your/theme';
+import Contribute from './frontend/content/Contribute/Contribute';
+import ECE from './frontend/content/ECE/ECE';
+import Marketplace from './frontend/content/Marketplace/Marketplace';
+import CookiesBanner from './CookiesBanner';
 
-export function App() {
+const App: React.FC = () => {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <ThirdwebProvider desiredChainId={ChainId.Mainnet}>
-                <header>
-                    <h1>Welcome to My App</h1>
-                </header>
-                <main>
-                    {/* Main content goes here */}
-                </main>
-                <footer>
-                    <p>&copy; 2023 My App. All rights reserved.</p>
-                </footer>
+                <Router>
+                    <header>
+                        {/* Metadata: This is where we will include... */}
+                        {/* Redux & Cookies */}
+                    </header>
+                    <main>
+                        <Routes>
+                            <Route path="/contribute" element={<Contribute />} />
+                            <Route path="/ece" element={<ECE />} />
+                            <Route path="/marketplace" element={<Marketplace />} />
+                            {/* Add more routes as needed */}
+                        </Routes>
+                    </main>
+                    <CookiesBanner />
+                    <footer>
+                        <p>&copy; 2023 My App. All rights reserved.</p>
+                        {/* Scripts: Pixels & Schema Pull */}
+                    </footer>
+                </Router>
             </ThirdwebProvider>
         </ThemeProvider>
     );
-}
+};
+
+export default App;

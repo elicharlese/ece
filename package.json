@@ -2,7 +2,12 @@
   "name": "@ece/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "start": "nx serve your-app-name",
+    "build": "nx build your-app-name",
+    "test": "nx test your-app-name",
+    "lint": "nx lint your-app-name"
+  },
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.4",

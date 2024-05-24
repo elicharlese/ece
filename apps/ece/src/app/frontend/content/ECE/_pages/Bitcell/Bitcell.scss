@@ -1,0 +1,77 @@
+@import 'path/to/variables'; // Import your brand variables (colors, fonts, etc.)
+
+// Container holding the 3D cell and its surrounding info
+.bitcell-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 100vh; // Full viewport height to center the content
+  background-color: $background-color; // Brand background color
+}
+
+// Styling for the 3D cell model
+.bitcell-3d {
+  width: 80vw; // Adjust width as per requirement
+  height: 60vh; // Adjust height as per requirement
+  margin: 0 auto; // Center horizontally
+  transform: translateZ(0); // Ensure proper 3D rendering
+}
+
+// Info boxes for health and status, floating around the cell
+.info-box {
+  position: absolute;
+  background-color: $info-box-bg; // Background color for info boxes
+  color: $text-color; // Brand text color
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Slight shadow for depth
+  transition: transform 0.3s ease; // Smooth hover animation
+
+  &:hover {
+    transform: scale(1.1); // Slightly enlarge on hover for interaction
+  }
+
+  &.performance {
+    top: 10%;
+    left: 10%;
+  }
+
+  &.health {
+    top: 10%;
+    right: 10%;
+  }
+
+  &.alerts {
+    bottom: 10%;
+    left: 10%;
+  }
+
+  // Add more classes as needed for other types of info
+}
+
+// Example heading styling, can be adjusted as necessary
+.info-heading {
+  font-size: 1.25rem; // Adjust as per requirement
+  font-weight: bold;
+}
+
+// Example paragraph styling
+.info-text {
+  font-size: 1rem; // Adjust as per requirement
+  line-height: 1.5;
+}
+
+// Ensure responsiveness
+@media (max-width: 768px) {
+  .bitcell-3d {
+    width: 100vw;
+    height: 50vh;
+  }
+
+  .info-box {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+}

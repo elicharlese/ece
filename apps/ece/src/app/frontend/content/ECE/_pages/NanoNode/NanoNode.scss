@@ -1,0 +1,67 @@
+.nano-node-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 1112px;
+  box-sizing: border-box;
+}
+
+.header {
+  margin: 0 0 112px 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+  box-sizing: border-box;
+}
+
+.title {
+  margin: 0 0 12px 0;
+  display: inline-block;
+  break-words: break-all;
+  font-family: 'Inter';
+  font-weight: bold;
+  font-size: 96px;
+  color: rgba(60, 60, 60, 0.7);
+}
+
+.description {
+  break-words: break-all;
+  font-family: 'Inter';
+  font-weight: bold;
+  font-size: 16px;
+  color: #000000;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.terminal-container {
+  display: flex;
+  flex-direction: row;
+  width: 1112px;
+  box-sizing: border-box;
+  margin-top: 4px;
+}
+
+.input-shell, .output-log {
+  width: 50%;
+  padding: 4px;
+}
+
+.input-shell {
+  border-right: 1px solid #d1d5db; /* Border for split screen */
+}
+
+.shell-textarea {
+  width: 100%;
+  height: 200px;
+  padding: 8px;
+  border: 1px solid #d1d5db;
+}
+
+.submit-button {
+  margin-top: 8px;
+}

@@ -1,0 +1,165 @@
+/* Marketplace.module.scss */
+
+/* General Styles */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Home Styles */
+.homeContainer {
+  @extend .container;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.featured,
+.categories,
+.promotions {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.productList,
+.categoryList,
+.promotionList {
+  display: flex;
+  justify-content: center;
+}
+
+.productItem,
+.categoryItem,
+.promotionItem {
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  text-align: center;
+}
+
+/* Marketplace Styles */
+.marketplaceContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navbar {
+  width: 100%;
+  background-color: #007bff;
+  padding: 10px 0;
+}
+
+.navList {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.navItem {
+  margin: 0 15px;
+}
+
+.navItem a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.navItem a:hover {
+  text-decoration: underline;
+}
+
+.filters {
+  margin-bottom: 20px;
+}
+
+.filters button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.filters button:hover {
+  background-color: #0056b3;
+}
+
+/* Wallet Styles */
+.walletContainer {
+  @extend .container;
+}
+
+.walletInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.balance,
+.transactions {
+  margin-bottom: 20px;
+}
+
+.balance h2,
+.transactions h2 {
+  font-size: 1.5rem;
+}
+
+.transactions ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.transactions li {
+  margin: 5px 0;
+}
+
+.walletActions {
+  display: flex;
+  justify-content: center;
+}
+
+.actionButton {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+.actionButton:hover {
+  background-color: #218838;
+}

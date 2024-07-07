@@ -1,0 +1,55 @@
+/* app.module.scss */
+
+/* General Container Styles */
+.appContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+/* General Header Styles */
+.appHeader {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* General Content Styles */
+.appContent {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Blended Mode Styles */
+.blendedMode {
+  background-color: #f0f8ff;
+}
+
+/* Blended Wallet Mode Styles */
+.blendedWalletMode {
+  background: linear-gradient(to right, #f0f8ff, #e6e6fa);
+}
+
+/* Full Screen Mode Styles */
+.fullScreenMode {
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Normal Mode Styles */
+.normalMode {
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Wallet Mode Styles */
+.walletMode {
+  background-color: #fff5e1;
+}

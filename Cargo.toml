@@ -1,5 +1,5 @@
 [package]
-name = "cleanfolio-v2"
+name = "ece"
 version = "0.1.0"
 edition = "2021"
 
@@ -10,5 +10,5 @@ cleanfolio = "0.1.0"
 sentry = "0.34.0"
 
 [lib]
-name = "Cleanfolio-v2"
+name = "ece"
 path = "lib.rs"

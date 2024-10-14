@@ -6,8 +6,9 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-cleanfolio = "0.1.0"
+ece = "0.1.0"
 sentry = "0.34.0"
+sqlx = { version = "0.7.0", features = ["runtime-async-std-native-tls", "postgres", "chrono", "uuid", "sqlite"] }
 
 [lib]
 name = "ece"

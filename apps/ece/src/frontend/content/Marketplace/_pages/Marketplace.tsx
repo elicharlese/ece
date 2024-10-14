@@ -1,47 +1,97 @@
-  import React, { useState } from 'react';
-  import styles from '../styles/Marketplace.module.scss';
+import React, { useState } from 'react';
+import './IDW.scss';
 
-  interface Product {
-    id: string;
-    name: string;
-    price: number;
-    description: string;
-    category: string;
-  }
+interface Configuration {
+  id: string;
+  name: string;
+  price: number;
+  description: string;
+}
 
-  const products: Product[] = [
-    { id: '1', name: 'Product 1', price: 29.99, description: 'Description for product 1', category: 'Category 1' },
-    { id: '2', name: 'Product 2', price: 49.99, description: 'Description for product 2', category: 'Category 1' },
-    { id: '3', name: 'Product 3', price: 69.99, description: 'Description for product 3', category: 'Category 2' },
-  ];
+const availableConfigurations: Configuration[] = [
+  { id: '1', name: 'Basic Automation', price: 19.99, description: 'Automate basic tasks with ease.' },
+  { id: '2', name: 'Advanced Analytics', price: 49.99, description: 'Gain insights with advanced analytics.' },
+  { id: '3', name: 'Full Suite', price: 99.99, description: 'Unlock all features and capabilities.' },
+];
 
-  const Marketplace: React.FC = () => {
-    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+const IDW = () => {
+  const [agentConfig, setAgentConfig] = useState({});
+  const [uploadedTemplate, setUploadedTemplate] = useState(null);
+  const [testResult, setTestResult] = useState(null);
+  const [purchasedConfigurations, setPurchasedConfigurations] = useState<Configuration[]>([]);
 
-    const filteredProducts = selectedCategory
-      ? products.filter(product => product.category === selectedCategory)
-      : products;
+  const handleConfigChange = (e) => {
+    const { name, value } = e.target;
+    setAgentConfig((prevConfig) => ({
+      ...prevConfig,
+      [name]: value,
+    }));
+  };
 
-    return (
-      <div className={styles.container}>
-        <h1 className={styles.header}>Marketplace</h1>
-        <div className={styles.filters}>
-          <button onClick={() => setSelectedCategory(null)}>All</button>
-          <button onClick={() => setSelectedCategory('Category 1')}>Category 1</button>
-          <button onClick={() => setSelectedCategory('Category 2')}>Category 2</button>
+  const handleTemplateUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setUploadedTemplate(file.name);
+    }
+  };
+
+  const handleTestAgent = () => {
+    setTestResult('Test successful!');
+  };
+
+  const handlePurchase = (config: Configuration) => {
+    setPurchasedConfigurations((prevConfigs) => [...prevConfigs, config]);
+  };
+
+  return (
+    <div className="idw-container">
+      <h1>Intelligent Digital Worker Configuration</h1>
+      <div className="config-section">
+        <h2>Configure Agent</h2>
+        <input
+          type="text"
+          name="agentName"
+          placeholder="Agent Name"
+          onChange={handleConfigChange}
+        />
+        <input
+          type="text"
+          name="taskDescription"
+          placeholder="Task Description"
+          onChange={handleConfigChange}
+        />
+        <button onClick={handleTestAgent}>Test Agent</button>
+        {testResult && <p>{testResult}</p>}
+      </div>
+      <div className="template-section">
+        <h2>Upload Template</h2>
+        <input type="file" onChange={handleTemplateUpload} />
+        {uploadedTemplate && <p>Uploaded: {uploadedTemplate}</p>}
+      </div>
+      <div className="marketplace-section">
+        <h2>Marketplace</h2>
+        <p>Purchase templates to enhance your IDW capabilities.</p>
+        <div className="configurations">
+          {availableConfigurations.map((config) => (
+            <div key={config.id} className="configuration-item">
+              <h3>{config.name}</h3>
+              <p>{config.description}</p>
+              <p>${config.price.toFixed(2)}</p>
+              <button onClick={() => handlePurchase(config)}>Purchase</button>
+            </div>
+          ))}
         </div>
-        <div className={styles.productList}>
-          {filteredProducts.map((product) => (
-            <div key={product.id} className={styles.productItem}>
-              <h2>{product.name}</h2>
-              <p>{product.description}</p>
-              <p>${product.price.toFixed(2)}</p>
-              <button className={styles.detailButton}>View Details</button>
+        <div className="purchased-configurations">
+          <h2>Purchased Configurations</h2>
+          {purchasedConfigurations.map((config) => (
+            <div key={config.id}>
+              <h3>{config.name}</h3>
             </div>
           ))}
         </div>
       </div>
-    );
-  };
+    </div>
+  );
+};
 
-  export default Marketplace;
+export default IDW;

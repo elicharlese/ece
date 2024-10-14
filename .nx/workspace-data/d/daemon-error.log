@@ -1,0 +1,26 @@
+Daemon process terminated and closed the connection
+
+Messages from the log:
+    message: "Cannot find module 'nx/src/plugins/package-json-workspaces'\n" +
+      'Require stack:\n' +
+      '- /Users/elicharlese/Desktop/Elias Estrada/Professional/ECE/ECE/node_modules/@nx/jest/src/plugins/plugin.js\n' +
+      '- /Users/elicharlese/Desktop/Elias Estrada/Professional/ECE/ECE/node_modules/@nx/jest/plugin.js\n' +
+      '- /Users/elicharlese/Desktop/Elias Estrada/Professional/ECE/ECE/node_modules/nx/src/project-graph/plugins/loader.js\n' +
+      '- /Users/elicharlese/Desktop/Elias Estrada/Professional/ECE/ECE/node_modules/nx/src/project-graph/plugins/isolation/plugin-worker.js',
+    code: 'MODULE_NOT_FOUND',
+    requireStack: [
+      '/Users/elicharlese/Desktop/Elias Estrada/Professional/ECE/ECE/node_modules/@nx/jest/src/plugins/plugin.js',
+      '/Users/elicharlese/Desktop/Elias Estrada/Professional/ECE/ECE/node_modules/@nx/jest/plugin.js',
+      '/Users/elicharlese/Desktop/Elias Estrada/Professional/ECE/ECE/node_modules/nx/src/project-graph/plugins/loader.js',
+      '/Users/elicharlese/Desktop/Elias Estrada/Professional/ECE/ECE/node_modules/nx/src/project-graph/plugins/isolation/plugin-worker.js'
+    ]
+  },
+  plugin: '@nx/jest/plugin',
+  name: 'LoadPluginError'
+}
+
+Node.js v20.9.0
+
+
+
+More information: /Users/elicharlese/Desktop/Elias Estrada/Professional/ECE/ECE/.nx/workspace-data/d/daemon.log

@@ -78,7 +78,7 @@
       }
     }
   },
-  "nxCloudAccessToken": "ZmU2YjM1NGItZWZmZi00ZTRkLTlmMzEtMGQzN2Q5MjBiNDEwfHJlYWQtd3JpdGU="
+  "nxCloudAccessToken": "ZmU2YjM1NGItZWZmZi00ZTRkLTlmMzEtMGQzN2Q5MjBiNDEwfHJlYWQtd3JpdGU=",
   "architect": {
     "build": {
       "builder": "@angular-builders/custom-webpack:browser",
@@ -86,7 +86,6 @@
         "customWebpackConfig": {
           "path": "./webpack.config.js"
         }
-        // Other existing configurations
       }
     }
   }

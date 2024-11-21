@@ -1,5 +1,3 @@
-// apps/ece/src/app/contracts/src/utils/utils.rs
-
 // Utility functions can be added here
 
 /// Converts a string to title case

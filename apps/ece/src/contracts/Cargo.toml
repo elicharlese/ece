@@ -1,17 +1,25 @@
 [package]
+<<<<<<< HEAD
 name = "ece"
+=======
+name = "ece-contracts"
+>>>>>>> a99842ae8ecbc6004289317e6f3875bd16d6b7ef
 version = "0.1.0"
 edition = "2018"
 
 [dependencies]
+<<<<<<< HEAD
 near-sdk = "4.1.1"
 parity-secp256k1 = "0.11"
+=======
+near-sdk = "5.2.1"
+>>>>>>> a99842ae8ecbc6004289317e6f3875bd16d6b7ef
 tokio = { version = "1", features = ["full"] }
 sea-orm = "0.8"
 sea-orm-migration = "0.8"
 sea-orm-cli = "0.8"
 dotenv = "0.15"
-sqlx = { version = "0.5", features = ["runtime-tokio-native-tls", "macros", "postgres"] }
+sqlx = { version = "0.7.0", features = ["runtime-async-std-native-tls", "postgres", "chrono", "uuid"] }
 serde = "1.0"
 serde_json = "1.0"
 secp256k1 = "0.21"

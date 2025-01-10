@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 // apps/ece/src/app/contracts/src/utils/utils.rs
 
 // Utility functions for the application
+=======
+// Utility functions can be added here
+>>>>>>> a99842ae8ecbc6004289317e6f3875bd16d6b7ef
 
 /// Converts a string to title case
 pub fn title_case(s: &str) -> String {

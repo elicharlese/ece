@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [package]
 name = "ece"
 version = "0.1.0"
@@ -12,3 +13,13 @@ secp256k1 = "0.21"
 [lib]
 name = "ece"
 path = "lib.rs"
+=======
+[workspace]
+members = [
+    "bitcell",
+    "thepublic",
+    "nano-node",
+    "txn-tracker",
+    "socket-chat",
+]
+>>>>>>> a99842ae8ecbc6004289317e6f3875bd16d6b7ef

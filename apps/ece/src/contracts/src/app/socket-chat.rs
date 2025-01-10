@@ -1,175 +1,175 @@
-use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
-use near_sdk::{env, near_bindgen, AccountId, BorshStorageKey, PanicOnDefault};
-use serde::{Deserialize, Serialize};
+use anchor_lang::prelude::*;
+use std::collections::HashMap;
 
-#[derive(BorshStorageKey, BorshSerialize)]
-pub enum StorageKey {
-    Messages,
-    Notes,
-    Files,
-    Comments,
-}
+declare_id!("YourProgramIDHere");
 
-#[near_bindgen]
-#[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
+#[account]
 pub struct SocketChat {
-    owner: AccountId,
-    participants: Vec<AccountId>,
-    messages: Vec<Message>,
-    notes: Vec<Note>,
-    files: Vec<File>,
-    comments: Vec<Comment>,
+    pub owner: Pubkey,
+    pub participants: Vec<Pubkey>,
+    pub messages: Vec<Message>,
+    pub notes: Vec<Note>,
+    pub files: Vec<File>,
+    pub comments: Vec<Comment>,
 }
 
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone)]
+#[derive(AnchorSerialize, AnchorDeserialize, Clone)]
 pub struct Message {
-    sender: AccountId,
-    content: String,
-    timestamp: u64,
-    file_id: Option<u64>,
+    pub sender: Pubkey,
+    pub content: String,
+    pub timestamp: u64,
+    pub file_id: Option<u64>,
 }
 
-#[derive(BorshDeserialize, BorshSerialize, Clone)]
+#[derive(AnchorSerialize, AnchorDeserialize, Clone)]
 pub struct Note {
-    content: String,
-    reference_url: Option<String>,
+    pub content: String,
+    pub reference_url: Option<String>,
 }
 
-#[derive(BorshDeserialize, BorshSerialize, Clone)]
+#[derive(AnchorSerialize, AnchorDeserialize, Clone)]
 pub struct File {
-    id: u64,
-    name: String,
-    content: String,
+    pub id: u64,
+    pub name: String,
+    pub content: String,
 }
 
-#[derive(BorshDeserialize, BorshSerialize, Clone)]
+#[derive(AnchorSerialize, AnchorDeserialize, Clone)]
 pub struct Comment {
-    file_id: u64,
-    line_number: u64,
-    content: String,
-    author: AccountId,
+    pub file_id: u64,
+    pub line_number: u64,
+    pub content: String,
+    pub author: Pubkey,
 }
 
-#[near_bindgen]
-impl SocketChat {
-    #[init]
-    pub fn new(owner: AccountId) -> Self {
-        Self {
-            owner,
-            participants: Vec::new(),
-            messages: Vec::new(),
-            notes: Vec::new(),
-            files: Vec::new(),
-            comments: Vec::new(),
-        }
+#[program]
+pub mod socket_chat {
+    use super::*;
+
+    pub fn new(ctx: Context<InitializeSocketChat>, owner: Pubkey) -> Result<()> {
+        let socket_chat = &mut ctx.accounts.socket_chat;
+        socket_chat.owner = owner;
+        socket_chat.participants = Vec::new();
+        socket_chat.messages = Vec::new();
+        socket_chat.notes = Vec::new();
+        socket_chat.files = Vec::new();
+        socket_chat.comments = Vec::new();
+        Ok(())
     }
 
-    // Start the SocketChat application
-    pub fn start_socket_chat(&self) {
-        env::log_str("SocketChat application started");
+    pub fn start_socket_chat(ctx: Context<StartSocketChat>) -> Result<()> {
+        msg!("SocketChat application started");
+        Ok(())
     }
 
-    // Handle chat with other users
-    pub fn handle_chat(&mut self, user: AccountId, message: String, file_id: Option<u64>) {
-        self.participants.push(user.clone());
+    pub fn handle_chat(ctx: Context<HandleChat>, user: Pubkey, message: String, file_id: Option<u64>) -> Result<()> {
+        let socket_chat = &mut ctx.accounts.socket_chat;
+        socket_chat.participants.push(user.clone());
         let new_message = Message {
             sender: user.clone(),
             content: message.clone(),
-            timestamp: env::block_timestamp(),
+            timestamp: Clock::get()?.unix_timestamp as u64,
             file_id,
         };
-        self.messages.push(new_message);
-        env::log_str(&format!("User {} sent message: {}", user, message));
+        socket_chat.messages.push(new_message);
+        msg!("User {} sent message: {}", user, message);
+        Ok(())
     }
 
-    // View chat inline with code
-    pub fn view_chat(&self) -> Vec<Message> {
-        self.messages.clone()
+    pub fn view_chat(ctx: Context<ViewChat>) -> Result<Vec<Message>> {
+        let socket_chat = &ctx.accounts.socket_chat;
+        Ok(socket_chat.messages.clone())
     }
 
-    // Add a new file to the system
-    pub fn add_file(&mut self, name: String, content: String) -> u64 {
-        let file_id = self.files.len() as u64;
-        self.files.push(File { id: file_id, name, content });
-        env::log_str(&format!("File added with ID: {}", file_id));
-        file_id
+    pub fn add_file(ctx: Context<AddFile>, name: String, content: String) -> Result<u64> {
+        let socket_chat = &mut ctx.accounts.socket_chat;
+        let file_id = socket_chat.files.len() as u64;
+        socket_chat.files.push(File { id: file_id, name, content });
+        msg!("File added with ID: {}", file_id);
+        Ok(file_id)
     }
 
-    // Add a comment to a specific line in a file
-    pub fn add_comment(&mut self, user: AccountId, file_id: u64, line_number: u64, content: String) {
+    pub fn add_comment(ctx: Context<AddComment>, user: Pubkey, file_id: u64, line_number: u64, content: String) -> Result<()> {
+        let socket_chat = &mut ctx.accounts.socket_chat;
         let new_comment = Comment { file_id, line_number, content, author: user };
-        self.comments.push(new_comment);
-        env::log_str("Comment added");
+        socket_chat.comments.push(new_comment);
+        msg!("Comment added");
+        Ok(())
     }
 
-    // View file along with its comments
-    pub fn view_file_with_comments(&self, file_id: u64) -> Option<(File, Vec<Comment>)> {
-        let file = self.files.iter().find(|f| f.id == file_id).cloned();
-        let comments: Vec<Comment> = self.comments.iter().filter(|c| c.file_id == file_id).cloned().collect();
+    pub fn view_file_with_comments(ctx: Context<ViewFileWithComments>, file_id: u64) -> Result<Option<(File, Vec<Comment>)>> {
+        let socket_chat = &ctx.accounts.socket_chat;
+        let file = socket_chat.files.iter().find(|f| f.id == file_id).cloned();
+        let comments: Vec<Comment> = socket_chat.comments.iter().filter(|c| c.file_id == file_id).cloned().collect();
         if let Some(f) = file {
-            Some((f, comments))
+            Ok(Some((f, comments)))
         } else {
-            None
+            Ok(None)
         }
     }
 
-    // Add a note
-    pub fn add_note(&mut self, content: String, reference_url: Option<String>) {
+    pub fn add_note(ctx: Context<AddNote>, content: String, reference_url: Option<String>) -> Result<()> {
+        let socket_chat = &mut ctx.accounts.socket_chat;
         let new_note = Note { content, reference_url };
-        self.notes.push(new_note);
-        env::log_str("Note added");
+        socket_chat.notes.push(new_note);
+        msg!("Note added");
+        Ok(())
     }
 
-    // Add a reference URL
-    pub fn add_reference(&mut self, url: String, description: String) {
-        self.add_note(description, Some(url));
+    pub fn add_reference(ctx: Context<AddReference>, url: String, description: String) -> Result<()> {
+        let socket_chat = &mut ctx.accounts.socket_chat;
+        let new_note = Note { content: description, reference_url: Some(url) };
+        socket_chat.notes.push(new_note);
+        msg!("Reference added");
+        Ok(())
     }
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use near_sdk::test_utils::VMContextBuilder;
-    use near_sdk::testing_env;
+#[derive(Accounts)]
+pub struct InitializeSocketChat<'info> {
+    #[account(init, payer = user, space = 8 + std::mem::size_of::<SocketChat>())]
+    pub socket_chat: Account<'info, SocketChat>,
+    #[account(mut)]
+    pub user: Signer<'info>,
+    pub system_program: Program<'info, System>,
+}
 
-    fn get_context() -> VMContextBuilder {
-        VMContextBuilder::new()
-    }
+#[derive(Accounts)]
+pub struct StartSocketChat<'info> {
+    pub socket_chat: Account<'info, SocketChat>,
+}
 
-    #[test]
-    fn test_start_socket_chat() {
-        let context = get_context();
-        testing_env!(context.build());
-        let contract = SocketChat::new("owner.testnet".parse().unwrap());
-        contract.start_socket_chat();
-    }
+#[derive(Accounts)]
+pub struct HandleChat<'info> {
+    pub socket_chat: Account<'info, SocketChat>,
+}
 
-    #[test]
-    fn test_handle_chat_with_file() {
-        let context = get_context();
-        testing_env!(context.build());
-        let mut contract = SocketChat::new("owner.testnet".parse().unwrap());
-        let file_id = contract.add_file("test.txt".to_string(), "Some content".to_string());
-        contract.handle_chat("user1.testnet".parse().unwrap(), "Check out the file", Some(file_id));
-    }
+#[derive(Accounts)]
+pub struct ViewChat<'info> {
+    pub socket_chat: Account<'info, SocketChat>,
+}
 
-    #[test]
-    fn test_add_comment() {
-        let context = get_context();
-        testing_env!(context.build());
-        let mut contract = SocketChat::new("owner.testnet".parse().unwrap());
-        let file_id = contract.add_file("test.txt".to_string(), "Some content".to_string());
-        contract.add_comment("user1.testnet".parse().unwrap(), file_id, 1, "Nice explanation".to_string());
-    }
+#[derive(Accounts)]
+pub struct AddFile<'info> {
+    pub socket_chat: Account<'info, SocketChat>,
+}
 
-    #[test]
-    fn test_view_file_with_comments() {
-        let context = get_context();
-        testing_env!(context.build());
-        let mut contract = SocketChat::new("owner.testnet".parse().unwrap());
-        let file_id = contract.add_file("test.txt".to_string(), "Some content".to_string());
-        contract.add_comment("user1.testnet".parse().unwrap(), file_id, 1, "Nice explanation".to_string());
-        let result = contract.view_file_with_comments(file_id);
-        assert!(result.is_some());
-    }
+#[derive(Accounts)]
+pub struct AddComment<'info> {
+    pub socket_chat: Account<'info, SocketChat>,
+}
+
+#[derive(Accounts)]
+pub struct ViewFileWithComments<'info> {
+    pub socket_chat: Account<'info, SocketChat>,
+}
+
+#[derive(Accounts)]
+pub struct AddNote<'info> {
+    pub socket_chat: Account<'info, SocketChat>,
+}
+
+#[derive(Accounts)]
+pub struct AddReference<'info> {
+    pub socket_chat: Account<'info, SocketChat>,
 }

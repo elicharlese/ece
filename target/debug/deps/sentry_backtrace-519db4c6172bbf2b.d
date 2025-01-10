@@ -1,0 +1,12 @@
+/project/workspace/target/debug/deps/libsentry_backtrace-519db4c6172bbf2b.rmeta: /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sentry-backtrace-0.34.0/src/lib.rs /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sentry-backtrace-0.34.0/src/integration.rs /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sentry-backtrace-0.34.0/src/parse.rs /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sentry-backtrace-0.34.0/src/process.rs /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sentry-backtrace-0.34.0/src/trim.rs /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sentry-backtrace-0.34.0/src/utils.rs
+
+/project/workspace/target/debug/deps/libsentry_backtrace-519db4c6172bbf2b.rlib: /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sentry-backtrace-0.34.0/src/lib.rs /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sentry-backtrace-0.34.0/src/integration.rs /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sentry-backtrace-0.34.0/src/parse.rs /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sentry-backtrace-0.34.0/src/process.rs /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sentry-backtrace-0.34.0/src/trim.rs /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sentry-backtrace-0.34.0/src/utils.rs
+
+/project/workspace/target/debug/deps/sentry_backtrace-519db4c6172bbf2b.d: /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sentry-backtrace-0.34.0/src/lib.rs /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sentry-backtrace-0.34.0/src/integration.rs /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sentry-backtrace-0.34.0/src/parse.rs /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sentry-backtrace-0.34.0/src/process.rs /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sentry-backtrace-0.34.0/src/trim.rs /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sentry-backtrace-0.34.0/src/utils.rs
+
+/root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sentry-backtrace-0.34.0/src/lib.rs:
+/root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sentry-backtrace-0.34.0/src/integration.rs:
+/root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sentry-backtrace-0.34.0/src/parse.rs:
+/root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sentry-backtrace-0.34.0/src/process.rs:
+/root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sentry-backtrace-0.34.0/src/trim.rs:
+/root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/sentry-backtrace-0.34.0/src/utils.rs:

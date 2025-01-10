@@ -1,0 +1,8 @@
+/project/workspace/target/debug/deps/librustls_pemfile-d71572b78b3e204e.rmeta: /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rustls-pemfile-2.2.0/src/lib.rs /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rustls-pemfile-2.2.0/src/pemfile.rs
+
+/project/workspace/target/debug/deps/librustls_pemfile-d71572b78b3e204e.rlib: /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rustls-pemfile-2.2.0/src/lib.rs /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rustls-pemfile-2.2.0/src/pemfile.rs
+
+/project/workspace/target/debug/deps/rustls_pemfile-d71572b78b3e204e.d: /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rustls-pemfile-2.2.0/src/lib.rs /root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rustls-pemfile-2.2.0/src/pemfile.rs
+
+/root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rustls-pemfile-2.2.0/src/lib.rs:
+/root/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rustls-pemfile-2.2.0/src/pemfile.rs:

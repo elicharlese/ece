@@ -1,112 +1,70 @@
-mod utils;
+use anchor_lang::prelude::*;
+use std::collections::HashMap;
 
-// Implementation of Campaign Logic for Web3 Foundation Grant Funding
-struct Web3Campaign {
-    id: u64,
-    name: String,
-    description: String,
-    target_amount: u128,
-    current_amount: u128,
-    start_date: u64,
-    end_date: u64,
-    owner: String,
-}
+declare_id!("YourProgramIDHere");
 
-impl Web3Campaign {
-    // Initializes a new campaign with the given details
-    fn new(id: u64, name: String, description: String, target_amount: u128, current_amount: u128, start_date: u64, end_date: u64, owner: String) -> Self {
-        Web3Campaign {
-            id,
-            name,
-            description,
-            target_amount,
-            current_amount,
-            start_date,
-            end_date,
-            owner,
-        }
+#[program]
+pub mod contribute {
+    use super::*;
+
+    pub fn initialize_campaign(ctx: Context<InitializeCampaign>, id: u64, name: String, description: String, target_amount: u128, start_date: u64, end_date: u64) -> Result<()> {
+        let campaign = &mut ctx.accounts.campaign;
+        campaign.id = id;
+        campaign.name = name;
+        campaign.description = description;
+        campaign.target_amount = target_amount;
+        campaign.current_amount = 0;
+        campaign.start_date = start_date;
+        campaign.end_date = end_date;
+        campaign.owner = ctx.accounts.owner.key().to_string();
+        Ok(())
     }
 
-    // Function to support funding logic
-    fn fund(&mut self, amount: u128) {
-        if self.end_date > now() {
-            self.current_amount += amount;
+    pub fn fund_campaign(ctx: Context<FundCampaign>, amount: u128) -> Result<()> {
+        let campaign = &mut ctx.accounts.campaign;
+        if campaign.end_date > now() {
+            campaign.current_amount += amount;
+            msg!("Funded campaign {} with amount {}", campaign.id, amount);
+        } else {
+            return Err(ErrorCode::CampaignEnded.into());
         }
-    }
-}
-
-// Implementation of Gitcoin Grant Funding
-struct GitcoinCampaign {
-    id: u64,
-    name: String,
-    description: String,
-    target_amount: u128,
-    current_amount: u128,
-    start_date: u64,
-    end_date: u64,
-    owner: String,
-}
-
-impl GitcoinCampaign {
-    // Initializes a new campaign with the given details
-    fn new(id: u64, name: String, description: String, target_amount: u128, current_amount: u128, start_date: u64, end_date: u64, owner: String) -> Self {
-        GitcoinCampaign {
-            id,
-            name,
-            description,
-            target_amount,
-            current_amount,
-            start_date,
-            end_date,
-            owner,
-        }
+        Ok(())
     }
 
-    // Function to support funding logic
-    fn fund(&mut self, amount: u128) {
-        if self.end_date > now() {
-            self.current_amount += amount;
-        }
+    fn now() -> u64 {
+        Clock::get()?.unix_timestamp as u64
     }
 }
 
-// Smart contract for Startups
-struct StartupCampaign {
-    id: u64,
-    name: String,
-    description: String,
-    target_amount: u128,
-    current_amount: u128,
-    start_date: u64,
-    end_date: u64,
-    owner: String,
+#[account]
+pub struct Campaign {
+    pub id: u64,
+    pub name: String,
+    pub description: String,
+    pub target_amount: u128,
+    pub current_amount: u128,
+    pub start_date: u64,
+    pub end_date: u64,
+    pub owner: String,
 }
 
-impl StartupCampaign {
-    // Initializes a new campaign with the given details
-    fn new(id: u64, name: String, description: String, target_amount: u128, current_amount: u128, start_date: u64, end_date: u64, owner: String) -> Self {
-        StartupCampaign {
-            id,
-            name,
-            description,
-            target_amount,
-            current_amount,
-            start_date,
-            end_date,
-            owner,
-        }
-    }
-
-    // Function to support funding logic
-    fn fund(&mut self, amount: u128) {
-        if self.end_date > now() {
-            self.current_amount += amount;
-        }
-    }
+#[derive(Accounts)]
+pub struct InitializeCampaign<'info> {
+    #[account(init, payer = owner, space = 8 + std::mem::size_of::<Campaign>())]
+    pub campaign: Account<'info, Campaign>,
+    #[account(mut)]
+    pub owner: Signer<'info>,
+    pub system_program: Program<'info, System>,
 }
 
-// Hypothetical function to get the current time
-fn now() -> u64 {
-    // Placeholder implementation; this should return the current time in the same format as `start_date` and `end_date`
-    1627849267 // Example timestamp
+#[derive(Accounts)]
+pub struct FundCampaign<'info> {
+    #[account(mut)]
+    pub campaign: Account<'info, Campaign>,
+}
+
+#[error]
+pub enum ErrorCode {
+    #[msg("The campaign has already ended.")]
+    CampaignEnded,
 }

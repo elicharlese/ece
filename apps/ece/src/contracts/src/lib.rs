@@ -1,99 +1,98 @@
 // src/lib.rs
-use sea_orm::*;
-use tokio::main;
-use dotenv::dotenv;
-use std::env;
 
-use near_sdk::{env as near_env, near_bindgen, AccountId, Promise};
+// Declare the modules 
+pub mod contracts;
+pub mod api;
+pub mod utils;
 
-#[derive(Debug)]
-pub struct Contract {
-    db: DatabaseConnection,
+// Re-exporting commonly used types and functions for easier access
+use anchor_lang::prelude::*;
+use anchor_lang::solana_program::pubkey::Pubkey;
+
+pub use anchor_lang::prelude::*;
+pub use anchor_lang::solana_program::program::invoke;
+pub use anchor_lang::solana_program::account_info::AccountInfo;
+pub use anchor_lang::solana_program::entrypoint::ProgramResult;
+pub use anchor_lang::solana_program::msg;
+pub use anchor_lang::solana_program::system_instruction;
+
+// Main application struct to manage the various components
+#[derive(AnchorSerialize, AnchorDeserialize)]
+#[account]
+pub struct Application {
+    pub wallet: Wallet,
+    pub marketplace: Marketplace,
+    pub crowdfunding_center: CrowdfundingCenter,
+    pub the_public: ThePublic,
+    pub bitcell: Bitcell,
+    pub txn_tracker: TxnTracker,
+    pub nano_node: NanoNode,
+    pub socket_chat: SocketChat,
 }
 
-impl Contract {
-    pub async fn new() -> Self {
-        dotenv().ok();
-        let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-        let db = Database::connect(&database_url).await.expect("Failed to connect to database");
-        Self { db }
-    }
-
-    pub async fn get_quiz_questions(&self) -> Vec<quizzes::Model> {
-        Quizzes::find().all(&self.db).await.expect("Error loading quizzes")
-    }
-
-    pub async fn submit_quiz_answers(&self, user_id: i32, answers: Vec<quiz_answers::Model>) -> bool {
-        let mut correct_count = 0;
-        for answer in answers.iter() {
-            let quiz = Quizzes::find_by_id(answer.quiz_id)
-                .one(&self.db)
-                .await
-                .expect("Error finding quiz")
-                .expect("Quiz not found");
-
-            let mut updated_answer = answer.clone();
-            updated_answer.is_correct = quiz.correct_answer == answer.given_answer;
-            if updated_answer.is_correct {
-                correct_count += 1;
-            }
-
-            quiz_answers::ActiveModel {
-                answer_id: Set(updated_answer.answer_id),
-                user_id: Set(updated_answer.user_id),
-                quiz_id: Set(updated_answer.quiz_id),
-                given_answer: Set(updated_answer.given_answer.clone()),
-                is_correct: Set(updated_answer.is_correct),
-            }
-            .update(&self.db)
-            .await
-            .expect("Error inserting answer");
+// Implementation of the Application struct
+impl Application {
+    #[init]
+    pub fn new() -> Self {
+        Self {
+            wallet: Wallet::new(),
+            marketplace: Marketplace::new(),
+            crowdfunding_center: CrowdfundingCenter::new(),
+            the_public: ThePublic::new(),
+            bitcell: Bitcell::new(),
+            txn_tracker: TxnTracker::new(),
+            nano_node: NanoNode::new(),
+            socket_chat: SocketChat::new(),
         }
-
-        correct_count == answers.len()
     }
 
-    // Add NEAR SDK interaction for rewarding here
-}
-
-#[near_bindgen]
-impl Contract {
-    // Add NEAR SDK interaction to reward user
-    pub fn reward_user(&self, user_id: AccountId, reward_amount: u128) {
-        assert_eq!(near_env::predecessor_account_id(), self.admin_account_id(), "Only admin can reward");
-        Promise::new(user_id).transfer(reward_amount);
+    /// Function to handle wallet interactions
+    pub fn handle_wallet(&mut self) {
+        self.wallet.process_transactions();
     }
 
-    // Helper function to get admin account ID
-    pub fn admin_account_id(&self) -> AccountId {
-        near_env::current_account_id()
+    /// Function to list a product in the marketplace
+    /// 
+    /// # Arguments
+    /// * `id` - The unique identifier for the product.
+    /// * `owner_id` - The account ID of the product owner.
+    /// * `metadata` - Metadata associated with the product.
+    /// * `price` - The price of the product.
+    pub fn list_product(&mut self, id: u64, owner_id: Pubkey, metadata: String, price: u64) {
+        self.marketplace.list_product(id, owner_id, metadata, price);
     }
-}
 
-// Main function to set up contract and run the application
-#[tokio::main]
-async fn main() {
-    let contract = Contract::new().await;
+    /// Function to create a crowdfunding campaign
+    /// 
+    /// # Arguments
+    /// * `id` - The unique identifier for the campaign.
+    /// * `owner_id` - The account ID of the campaign owner.
+    /// * `goal` - The funding goal for the campaign.
+    pub fn create_campaign(&mut self, id: String, owner_id: Pubkey, goal: u64) {
+        self.crowdfunding_center.create_campaign(id, owner_id, goal);
+    }
 
-    // Example: Fetching quiz questions
-    let quizzes = contract.get_quiz_questions().await;
-    println!("{:?}", quizzes);
+    /// Function to register a user in ThePublic application
+    /// 
+    /// # Arguments
+    /// * `account_id` - The account ID of the user.
+    /// * `username` - The username of the user.
+    pub fn register_user(&mut self, account_id: Pubkey, username: String) {
+        self.the_public.register_user(account_id, username);
+    }
 
-    // Example: Submitting quiz answers and rewarding user if all answers are correct
-    let user_id = 1;
-    let answers = vec![
-        quiz_answers::Model {
-            answer_id: 0,
-            user_id,
-            quiz_id: 1,
-            given_answer: "Correct Answer".to_string(),
-            is_correct: false,
-        },
-        // more answers...
-    ];
+    /// Function to track a transaction
+    /// 
+    /// # Arguments
+    /// * `transaction_id` - The unique identifier for the transaction.
+    /// * `transaction_data` - The data associated with the transaction.
+    /// * `involved_address` - The account ID involved in the transaction.
+    pub fn track_transaction(&mut self, transaction_id: String, transaction_data: String, involved_address: Pubkey) {
+        self.txn_tracker.track_transaction(transaction_id, transaction_data, involved_address);
+    }
 
-    let all_correct = contract.submit_quiz_answers(user_id, answers).await;
-    if all_correct {
-        contract.reward_user("user.near".to_string(), 1000000000000000000000000);
+    /// Function to start the socket chat application
+    pub fn start_socket_chat(&self) {
+        self.socket_chat.start_socket_chat();
     }
 }
